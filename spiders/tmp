@@ -1,0 +1,5 @@
+CREATE TABLE 'tbl_info' (
+    'id' int NOT NULL,
+    'createtime' datetimeL,
+    'content' text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
