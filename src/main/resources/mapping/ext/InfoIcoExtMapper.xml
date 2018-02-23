@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.InfoIcoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.InfoIco" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="coin_type" property="coinType" jdbcType="VARCHAR" />
+    <result column="coin_target" property="coinTarget" jdbcType="DOUBLE" />
+    <result column="coin_get" property="coinGet" jdbcType="DOUBLE" />
+    <result column="endtime" property="endtime" jdbcType="BIGINT" />
+    <result column="inputtime" property="inputtime" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ooteco.model.InfoIco" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, cover, coin_type, coin_target, coin_get, endtime, inputtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    select
+    id, title, cover, concat(substring(content, 1, 35), "...") AS content, inputtime
+    from vt_info_ico
+  </select>
+</mapper>

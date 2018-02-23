@@ -1,0 +1,73 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+#  address: 172.18.61.117
+
+spring:
+    http:
+        encoding:
+          force: true
+          charset: utf-8
+          enabled: true
+    datasource:
+        name: virtualTrade
+        url: jdbc:mysql://120.79.34.242:3306/virtualTrade?useUnicode=true&characterEncoding=UTF-8
+        username: vt_dev
+        password: vt_dev__2018~*!#$
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    redis:
+        database: 0
+        host: 112.74.215.198
+        port: 6379
+        password: jfc2zIKi8B28Clg9
+        timeout: 0
+        pool:
+            max-active: 10
+            max-wait: 1000
+            max-idle: 10
+            min-idle: 0
+mybatis:
+    mapper-locations: classpath:mapping/*.xml,classpath:mapping/ext/*.xml
+    type-aliases-package: com.ooteco.model
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+#文件上传路径
+uploader:
+    basepath: D://IdeaProjects/wb/zk/virtualTrade/trunk/upload/
+
+#aliyun短信服务
+aliyun:
+    sms:
+        product: Dysmsapi
+        domain: dysmsapi.aliyuncs.com
+        accessKeyId: LTAIDXSxJBYrAiQP
+        accessKeySecret: b9tI1UawZkVBNs3To3ZR1EAAxwD9d9
+        signName: 晓市
+        templateCode: SMS_125022969
+#极光推送
+jpush:
+    appkey: f4168ed8e482959d04a20168
+    mastersecret: a9c24ef8c53f87a55cd3cb71
