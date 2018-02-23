@@ -16,6 +16,11 @@ toutiao_columes="title,author,newstime,newsuri"
 qukuaiwang_tbl="vt_info_block_news"
 qukuaiwang_columes="title,author,newstime,newsuri"
 
+# host='localhost'
+# user='root'
+# passwd=''
+# database='test'
+
 host='120.79.34.242'
 user='vt_dev'
 passwd='vt_dev__2018~*!#$'

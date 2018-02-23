@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.InfomationMapper">
+    <resultMap id="BaseResultMap" type="com.ooteco.model.QuickNews">
+        <id column="id" property="id"/>
+        <result column="createtime" property="createtime"/>
+        <result column="content" property="content"/>
+        <result column="sourceurl" property="sourceurl"/>
+        <result column="source" property="source"/>
+    </resultMap>
+
+
+    <resultMap id="NiurenResultMap" type="com.ooteco.model.NiurenNews">
+        <id column="id" property="id"/>
+        <result column="createtime" property="createtime"/>
+        <result column="content" property="content"/>
+        <result column="name" property="name"/>
+        <result column="source" property="source"/>
+    </resultMap>
+
+    <resultMap id="HeadFirstResultMap" type="com.ooteco.model.FirstHeadNews">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="newstime" property="newstime"/>
+        <result column="newsuri" property="newsurl"/>
+    </resultMap>
+    <sql id="KuaiXunColumnList">
+        id ,createtime ,content,sourceurl,source
+    </sql>
+
+    <sql id="NiurenColumeList">
+        id ,name,createtime ,content,source
+    </sql>
+    <sql id="HeadFirstColumeList">
+        id ,title ,author,newstime,newsuri
+    </sql>
+
+
+    <select id="getallinfo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="KuaiXunColumnList"/>
+        FROM vt_info_news order by createtime desc
+    </select>
+    <select id="getInfoBySource" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="KuaiXunColumnList"/>
+        FROM vt_info_news
+        WHERE source like #{source}"%" order by createtime desc
+    </select>
+    <select id="getInfoByDate" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="KuaiXunColumnList"/>
+        FROM vt_info_news
+        where createtime like #{date}"%" order by createtime desc
+    </select>
+
+
+    <select id="getHeadFirstInfo" resultMap="HeadFirstResultMap">
+        SELECT
+        <include refid="HeadFirstColumeList"/>
+        from vt_info_block_news  order by newstime desc
+    </select>
+    <select id="getHeadFirstInfoBySource" resultMap="HeadFirstResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="HeadFirstColumeList"/>
+        from vt_info_block_news
+        WHERE source = #{source} order by newstime desc
+    </select>
+
+    <select id="getInfoHeadFirstByDate" resultMap="HeadFirstResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="HeadFirstColumeList"/>
+        from vt_info_block_news
+        WHERE newstime like #{date}"%"  order by newstime desc
+    </select>
+
+    <select id="getInfoHeadFirstAll" resultMap="HeadFirstResultMap">
+        SELECT
+        <include refid="HeadFirstColumeList"/>
+        from vt_info_block_news order by newstime desc
+    </select>
+
+
+    <select id="getInfoNiuren" resultMap="NiurenResultMap">
+        select
+        <include refid="NiurenColumeList"/>
+        FROM vt_info_niuren  order by createtime desc
+    </select>
+
+    <select id="getInfoNiurenBySource" resultMap="NiurenResultMap" parameterType="java.lang.String">
+        select
+        <include refid="NiurenColumeList"/>
+        FROM vt_info_niuren WHERE source =#{source}  order by createtime desc
+    </select>
+
+    <select id="getInfoNiurenByDate" resultMap="NiurenResultMap" parameterType="java.lang.String">
+        select
+        <include refid="NiurenColumeList"/>
+        FROM vt_info_niuren WHERE createtime like #{date}"%"  order by createtime desc
+    </select>
+    <select id="getInfNiurenoAll" resultMap="NiurenResultMap">
+        select
+        <include refid="NiurenColumeList"/>
+        FROM vt_info_niuren  order by createtime desc
+    </select>
+</mapper>

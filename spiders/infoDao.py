@@ -22,6 +22,16 @@ class infoDao:
         for entry in data:
             print("Database version----- : %s " % entry)
 
+
+    def dels(self,platform,symble,tablename):
+        cursor = self.db.cursor()
+        cursor.execute("delete from  {} where platform='{}' and symbol='{}'".format(tablename,platform,symble))
+        self.db.commit()
+        # print("delete from  {} where platform={} and symbol={}".format(tablename,platform,symble))
+
+
+
+
     def saveInfo(self, tableName, columesName, values):
         # 使用cursor()方法获取操作游标
         cursor = self.db.cursor()
