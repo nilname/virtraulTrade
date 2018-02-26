@@ -47,12 +47,13 @@ class restzb:
 
             insertStr = " \"zb\",{},\"{}\",{},{},{},{},{},{}".format(item[0] / 1000000, symble, openzb, closezb,
                                                                      lowzb, highzb, volzb, amountzb)
+            self.dao.dels("zb", symble, tablename="vt_market_tick")
             self.dao.saveInfo(tableName="vt_market_tick",
                               columesName="platform,id,symbol,open, close, low, high, vol, amount",
                               values=insertStr)
 
-            print(item)
-            print(insertStr)
+            # print(item)
+            # print(insertStr)
 
     def getdepth(self, symble):
         url = "http://api.zb.com/data/v1/depth?market=" + symble + "&size=5"

@@ -32,12 +32,13 @@ class restokex:
 
             insertStr = " \"okex\",{},\"{}\",{},{},{},{},{},{}".format(item[0] / 1000000, symble, openokex, closeokex,
                                                                        lowokex, highokex, volokex, amountokex)
+            self.dao.dels("okex", symble, tablename="vt_market_tick")
             self.dao.saveInfo(tableName="vt_market_tick",
                               columesName="platform,id,symbol,open, close, low, high, vol, amount",
                               values=insertStr)
 
-            print(item)
-            print(insertStr)
+            # print(item)
+            # print(insertStr)
 
     def getdepth(self, symble):
         url = "https://www.okex.com/api/v1/future_depth.do?symbol=" + symble + "&contract_type=this_week&size=5"

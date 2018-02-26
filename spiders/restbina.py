@@ -32,12 +32,13 @@ class restbian:
 
             insertStr = " \"bian\",{},\"{}\",{},{},{},{},{},{}".format(item[0] / 1000000, symble, openbian, closebian,
                                                                        lowbian, highbian, volbian, amountbian)
+            self.dao.dels("bian", symble, tablename="vt_market_tick")
             self.dao.saveInfo(tableName="vt_market_tick",
                               columesName="platform,id,symbol,open, close, low, high, vol, amount",
                               values=insertStr)
 
-            print(item)
-            print(insertStr)
+            # print(item)
+            # print(insertStr)
 
     def getdepth(self, symble):
         url = "https://www.binance.com/api/v1/depth?symbol=" + symble + "&limit=5"

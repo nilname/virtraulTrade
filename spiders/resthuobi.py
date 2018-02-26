@@ -24,11 +24,12 @@ class resthuobi:
         for item in all_div:
             basename = item["base-currency"]
             quotename = item["quote-currency"]
-            res.append(basename + quotename)
+            res.append(basename +"_"+ quotename)
         return res
 
     def getMarket(self, symble):
-        url = "https://api.huobi.pro/market/history/kline?period=1min&size=1&symbol=" + symble
+        nsymbol=symble.replace("_","")
+        url = "https://api.huobi.pro/market/history/kline?period=1min&size=1&symbol=" + nsymbol
         try:
             response_result = urllib.request.urlopen(url).read()
             tmp = json.loads(response_result)
@@ -49,15 +50,17 @@ class resthuobi:
 
             insertStr = " \"huobi\",{},\"{}\",{},{},{},{},{},{}".format(item['id'], symble, openhuobi, closehuobi,
                                                                         lowhuobi, highhuobi, volhuobi, amounthuobi)
+            self.dao.dels("huobi", symble, tablename="vt_market_tick")
             self.dao.saveInfo(tableName="vt_market_tick",
                               columesName="platform,id,symbol,open, close, low, high, vol, amount",
                               values=insertStr)
 
-            print(item)
-            print(insertStr)
+            # print(item)
+            # print(insertStr)
 
     def getdepth(self, symble):
-        url = "https://api.huobi.pro/market/depth?symbol=" + symble + "&type=step5"
+        nsymbol = symble.replace("_", "")
+        url = "https://api.huobi.pro/market/depth?symbol=" + nsymbol + "&type=step5"
         try:
             response_result = urllib.request.urlopen(url).read()
             tmp = json.loads(response_result)
