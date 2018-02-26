@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.UserIdentityMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.UserIdentity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="img_id1" property="imgId1" jdbcType="VARCHAR" />
+    <result column="img_id2" property="imgId2" jdbcType="VARCHAR" />
+    <result column="img_id3" property="imgId3" jdbcType="VARCHAR" />
+    <result column="img_sign" property="imgSign" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="inputtime" property="inputtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, realname, idcard, img_id1, img_id2, img_id3, img_sign, state, inputtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vt_u_identity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vt_u_identity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.model.UserIdentity" >
+    insert into vt_u_identity (id, userid, realname, 
+      idcard, img_id1, img_id2, 
+      img_id3, img_sign, state, 
+      inputtime)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{imgId1,jdbcType=VARCHAR}, #{imgId2,jdbcType=VARCHAR}, 
+      #{imgId3,jdbcType=VARCHAR}, #{imgSign,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, 
+      #{inputtime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.model.UserIdentity" >
+    insert into vt_u_identity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="imgId1 != null" >
+        img_id1,
+      </if>
+      <if test="imgId2 != null" >
+        img_id2,
+      </if>
+      <if test="imgId3 != null" >
+        img_id3,
+      </if>
+      <if test="imgSign != null" >
+        img_sign,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="inputtime != null" >
+        inputtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId1 != null" >
+        #{imgId1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId2 != null" >
+        #{imgId2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId3 != null" >
+        #{imgId3,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSign != null" >
+        #{imgSign,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="inputtime != null" >
+        #{inputtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.model.UserIdentity" >
+    update vt_u_identity
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId1 != null" >
+        img_id1 = #{imgId1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId2 != null" >
+        img_id2 = #{imgId2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId3 != null" >
+        img_id3 = #{imgId3,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSign != null" >
+        img_sign = #{imgSign,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="inputtime != null" >
+        inputtime = #{inputtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.model.UserIdentity" >
+    update vt_u_identity
+    set userid = #{userid,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      img_id1 = #{imgId1,jdbcType=VARCHAR},
+      img_id2 = #{imgId2,jdbcType=VARCHAR},
+      img_id3 = #{imgId3,jdbcType=VARCHAR},
+      img_sign = #{imgSign,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      inputtime = #{inputtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

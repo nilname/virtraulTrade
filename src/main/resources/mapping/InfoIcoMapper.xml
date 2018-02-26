@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.InfoIcoMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.InfoIco" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="coin_type" property="coinType" jdbcType="VARCHAR" />
+    <result column="coin_target" property="coinTarget" jdbcType="DOUBLE" />
+    <result column="coin_get" property="coinGet" jdbcType="DOUBLE" />
+    <result column="endtime" property="endtime" jdbcType="BIGINT" />
+    <result column="inputtime" property="inputtime" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ooteco.model.InfoIco" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, cover, coin_type, coin_target, coin_get, endtime, inputtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vt_info_ico
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vt_info_ico
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.model.InfoIco" >
+    insert into vt_info_ico (id, title, cover, 
+      coin_type, coin_target, coin_get, 
+      endtime, inputtime, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{coinType,jdbcType=VARCHAR}, #{coinTarget,jdbcType=DOUBLE}, #{coinGet,jdbcType=DOUBLE}, 
+      #{endtime,jdbcType=BIGINT}, #{inputtime,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.model.InfoIco" >
+    insert into vt_info_ico
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="coinType != null" >
+        coin_type,
+      </if>
+      <if test="coinTarget != null" >
+        coin_target,
+      </if>
+      <if test="coinGet != null" >
+        coin_get,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="inputtime != null" >
+        inputtime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null" >
+        #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinTarget != null" >
+        #{coinTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="coinGet != null" >
+        #{coinGet,jdbcType=DOUBLE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="inputtime != null" >
+        #{inputtime,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.model.InfoIco" >
+    update vt_info_ico
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null" >
+        coin_type = #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinTarget != null" >
+        coin_target = #{coinTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="coinGet != null" >
+        coin_get = #{coinGet,jdbcType=DOUBLE},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="inputtime != null" >
+        inputtime = #{inputtime,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ooteco.model.InfoIco" >
+    update vt_info_ico
+    set title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR},
+      coin_target = #{coinTarget,jdbcType=DOUBLE},
+      coin_get = #{coinGet,jdbcType=DOUBLE},
+      endtime = #{endtime,jdbcType=BIGINT},
+      inputtime = #{inputtime,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.model.InfoIco" >
+    update vt_info_ico
+    set title = #{title,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR},
+      coin_target = #{coinTarget,jdbcType=DOUBLE},
+      coin_get = #{coinGet,jdbcType=DOUBLE},
+      endtime = #{endtime,jdbcType=BIGINT},
+      inputtime = #{inputtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

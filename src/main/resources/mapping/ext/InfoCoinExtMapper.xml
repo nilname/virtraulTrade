@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.InfoCoinExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.InfoCoin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name_cn" property="nameCn" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="param" property="param" jdbcType="VARCHAR" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="inputtime" property="inputtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name_cn, name_en, `desc`, param, link, inputtime
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    id, name_cn, name_en
+    from vt_info_coin
+  </select>
+</mapper>
