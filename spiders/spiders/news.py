@@ -291,6 +291,8 @@ class headfirst:
             img+=image['src']+";"
         contentdetals=self.process(contendetail.text)
         insertStr = "\"{}\",\"{}\",\"{}\"".format(title, contentdetals, img)
+	#print(insertStr)
+	#print("=============")
         self.dao.saveInfo(utils.qukuaiwang_detail_tbl, utils.qukuaiwang_detail_columes, insertStr)
         ###########
         #入库
@@ -318,6 +320,7 @@ class headfirst:
             hots = it[3]
             img = self.baseUrl + item.img['src']
             newsuri = 'http://www.qukuaiwang.com.cn' + item.a['href']
+            getdetails(newsuri)
             insertStr = "\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",{}".format(title, author, newstime, newsuri, img, hots)
             self.dao.saveInfo(utils.qukuaiwang_tbl, utils.qukuaiwang_columes, insertStr)
         time.sleep(5)
