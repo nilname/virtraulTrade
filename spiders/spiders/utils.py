@@ -25,6 +25,7 @@ qukuaiwang_tbl="vt_info_block_news"
 qukuaiwang_columes="title,author,newstime,newsuri,img,viewcount"
 
 
+
 qukuaiwang_detail_tbl="vt_info_block_news_detail"
 qukuaiwang_detail_columes="title,content,images"
 # host='localhost'

@@ -96,7 +96,6 @@ def getData():
     for i in ax:
         zbinstance.getMarket(i)
         zbinstance.getdepth(i)
-    #del zbinstance
     time.sleep(5)
 if __name__ == "__main__":
         getData()

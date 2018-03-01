@@ -99,8 +99,7 @@ def getData():
     for i in ax:
         huobiinstance.getMarket(i)
         huobiinstance.getdepth(i)
-    #del huobiinstance
-    time.sleep(5)
+    time.sleep(1)
 
 if __name__ == "__main__":
     while True:

@@ -17,3 +17,21 @@ CREATE TABLE `vt_info_block_news_detail` (
   `images` varchar(255) DEFAULT NULL comment "图片链接",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_info_news` (
+  `id` int(11) NOT NULL  comment "id ",
+  `createtime` datetime DEFAULT NULL comment"快讯发布日期",
+  `content` text comment"快讯内容",
+  `sourceurl` varchar(255) DEFAULT NULL comment "快讯相关链接地址",
+  `source` varchar(255) DEFAULT NULL comment "数据来源平台"
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_info_niuren` (
+  `id` int(11) NOT NULL comment "id",
+  `name` varchar(255) DEFAULT NULL comment "牛人名称",
+  `createtime` datetime DEFAULT NULL comment "发布时间",
+  `content` text comment "牛人言论",
+  `source` varchar(64) DEFAULT NULL "牛人言论来源 weibo twitter"
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

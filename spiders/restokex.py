@@ -80,8 +80,7 @@ def getData():
     for i in ax:
         okexinstance.getMarket(i)
         okexinstance.getdepth(i)
-    #del okexinstance
-    time.sleep(5)
+    time.sleep(1)
 
 if __name__ == "__main__":
     getData()

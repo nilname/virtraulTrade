@@ -80,7 +80,6 @@ def getData():
         bianinstance.getMarket(i)
         bianinstance.getdepth(i)
 
-#    del  bianinstance
 
 if __name__ == "__main__":
         getData()
