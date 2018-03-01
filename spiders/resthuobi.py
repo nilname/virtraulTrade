@@ -3,6 +3,7 @@ import json
 import urllib.parse
 import urllib.request
 import infoDao
+import time
 
 
 class resthuobi:
@@ -98,7 +99,9 @@ def getData():
     for i in ax:
         huobiinstance.getMarket(i)
         huobiinstance.getdepth(i)
-
+    #del huobiinstance
+    time.sleep(5)
 
 if __name__ == "__main__":
-    getData()
+    while True:
+        getData()

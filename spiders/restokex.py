@@ -1,4 +1,5 @@
 # coding:utf-8 #
+import time
 import json
 import urllib.parse
 import urllib.request
@@ -79,5 +80,8 @@ def getData():
     for i in ax:
         okexinstance.getMarket(i)
         okexinstance.getdepth(i)
+    #del okexinstance
+    time.sleep(5)
+
 if __name__ == "__main__":
     getData()
