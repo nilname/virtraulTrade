@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.MarketTickExtMapper" >
+    <resultMap id="BaseResultMap" type="com.ooteco.model.MarketTick" >
+        <result column="Id" property="id" jdbcType="INTEGER" />
+        <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+        <result column="platform" property="platform" jdbcType="VARCHAR" />
+        <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+        <result column="open" property="open" jdbcType="DOUBLE" />
+        <result column="close" property="close" jdbcType="DOUBLE" />
+        <result column="low" property="low" jdbcType="DOUBLE" />
+        <result column="high" property="high" jdbcType="DOUBLE" />
+        <result column="amount" property="amount" jdbcType="DOUBLE" />
+        <result column="vol" property="vol" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <select id="selectMarketCurrentData" resultMap="BaseResultMap">
+    SELECT
+	*
+    FROM
+	vt_market_tick
+    WHERE ts&gt;#{date}
+    </select>
+    <select id="selectMarketMaxTimeData" resultType="java.util.Date">
+    SELECT
+	MAX(ts)
+    FROM
+	vt_market_tick
+    </select>
+    <select id="selectAllData" resultMap="BaseResultMap">
+    SELECT
+	*
+    FROM
+	vt_market_tick
+    </select>
+    <select id="selectSymbol" resultType="java.lang.String">
+        SELECT symbol
+        FROM vt_market_tick
+        WHERE Id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.UserIdentityExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.UserIdentity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="inputtime" property="inputtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ooteco.model.UserIdentity" extends="BaseResultMap" >
+    <result column="img_id1" property="imgId1" jdbcType="BLOB" />
+    <result column="img_id2" property="imgId2" jdbcType="BLOB" />
+    <result column="img_id3" property="imgId3" jdbcType="BLOB" />
+    <result column="img_sign" property="imgSign" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, realname, idcard, state, inputtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    img_id1, img_id2, img_id3, img_sign
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vt_u_identity
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <update id="updateStateByUserId" parameterType="com.ooteco.model.UserIdentity" >
+    update vt_u_identity
+    set
+      state = #{state,jdbcType=TINYINT}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

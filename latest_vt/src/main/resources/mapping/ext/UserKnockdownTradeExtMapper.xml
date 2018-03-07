@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.UserKnockdownTradeExtMapper" >
+    <select id="knockdownTradeInOrder" resultMap="com.ooteco.mapper.UserKnockdownTradeMapper.BaseResultMap">
+        SELECT *
+        FROM vt_u_knockdown_trade
+        WHERE user_id=#{userId}
+        AND ask_trade_id=#{askTradeId}
+    </select>
+    <select id="knockdownTradeOutOrder" resultMap="com.ooteco.mapper.UserKnockdownTradeMapper.BaseResultMap">
+        SELECT *
+        FROM vt_u_knockdown_trade
+        WHERE user_id=#{userId}
+        AND bid_trade_id=#{bidTradeId}
+    </select>
+</mapper>

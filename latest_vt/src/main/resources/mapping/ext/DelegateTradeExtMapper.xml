@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.DelegateTradeExtMapper">
+    <select id="delegateTradeCurrentOrder" resultMap="com.ooteco.mapper.DelegateTradeMapper.BaseResultMap">
+      SELECT *
+      FROM
+	    vt_u_delegate_trade
+	  <where>
+          <if test="tradeType ==null and tradeType ==''">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND status IN (#{status})
+          </if>
+          <if test="tradeType !=null and tradeType !=''">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND trade_type=#{tradeType} AND status IN (#{status})
+          </if>
+      </where>
+        ORDER BY create_time DESC
+    </select>
+    <select id="delegateTradeHistoryOrder" resultMap="com.ooteco.mapper.DelegateTradeMapper.BaseResultMap">
+      SELECT *
+      FROM
+        vt_u_delegate_trade
+      <where>
+          <if test="operateType!= null and tradeType!= null">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND operate_type=#{operateType} AND trade_type=#{tradeType} AND status IN (#{status})
+          </if>
+          <if test="operateType!= null and tradeType == null">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND operate_type=#{operateType} AND status IN (#{status})
+          </if>
+          <if test="operateType == null and tradeType!= null">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND operate_type=#{tradeType} AND status IN (#{status})
+          </if>
+          <if test="operateType == null and tradeType == null">
+              user_id=#{userId} AND is_canceled=#{isCanceled} AND status IN (#{status})
+          </if>
+      </where>
+    </select>
+    <select id="selectById" resultMap="com.ooteco.mapper.DelegateTradeMapper.BaseResultMap">
+        SELECT *
+        FROM vt_u_delegate_trade
+        WHERE id=#{id}
+    </select>
+</mapper>

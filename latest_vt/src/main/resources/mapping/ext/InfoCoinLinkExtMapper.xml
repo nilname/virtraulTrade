@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.InfoCoinLinkExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.InfoCoinLink" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coinid" property="coinid" jdbcType="INTEGER" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, coinid, link
+  </sql>
+  <select id="selectByCoinid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vt_info_coin_link
+    where coinid = #{coinid,jdbcType=INTEGER}
+  </select>
+</mapper>

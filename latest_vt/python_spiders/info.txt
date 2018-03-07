@@ -1,0 +1,79 @@
+CREATE TABLE `vt_info_block_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT comment "自增ID 作为主键",
+  `title` text comment "头条标题",
+  `author` varchar(255) DEFAULT NULL comment "头条作者",
+  `newstime` datetime DEFAULT NULL comment "头条发布日期",
+  `newsuri` varchar(255) DEFAULT NULL comment "头条详情地址",
+  img varchar(255) comment "头条图片",
+  viewcount int(16) comment "头条热度",
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_info_block_news_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT comment "自增ID 作为主键",
+  `title` text comment "头条标题",
+  `content` text DEFAULT NULL comment "头条详细内容",
+  `images` varchar(255) DEFAULT NULL comment "图片链接",
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_info_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT comment "id ",
+  `createtime` datetime DEFAULT NULL comment"快讯发布日期",
+  `content` text comment"快讯内容",
+  `sourceurl` varchar(255) DEFAULT NULL comment "快讯相关链接地址",
+  `source` varchar(255) DEFAULT NULL comment "数据来源平台",
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_info_niuren` (
+  `id` int(11) NOT NULL  AUTO_INCREMENT comment "id",
+  `name` varchar(255) DEFAULT NULL comment "牛人名称",
+  `createtime` datetime DEFAULT NULL comment "发布时间",
+  `content` text comment "牛人言论",
+  `source` varchar(64) DEFAULT NULL comment "牛人言论来源 weibo twitter",
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_market_depth` (
+ `id` int(11) NOT NULL  AUTO_INCREMENT comment "id",
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `type` varchar(16) DEFAULT NULL COMMENT '挂单类型',
+  `price` double(32,16) DEFAULT NULL COMMENT '挂单价格',
+  `amount` double(32,16) DEFAULT NULL COMMENT '挂单数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `vt_market_tick` (
+  `id` int(11) DEFAULT NULL AUTO_INCREMENT  COMMENT '自增长',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `open` double(32,16) DEFAULT NULL COMMENT '开盘',
+  `close` double(32,16) DEFAULT NULL COMMENT '收盘最后一笔交易',
+  `low` double(32,16) DEFAULT NULL COMMENT '最低',
+  `high` double(32,16) DEFAULT NULL COMMENT '最高',
+  `amount` double(32,16) DEFAULT NULL COMMENT '成交量',
+  `vol` double(32,16) DEFAULT NULL COMMENT '成交额度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `vt_market_trade_history` (
+  `id` int(11) DEFAULT NULL AUTO_INCREMENT  COMMENT '成交id自增长',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '成交时间时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `price` double(32,16) DEFAULT NULL COMMENT '成交价',
+  `amount` double(32,16) DEFAULT NULL COMMENT '成交量',
+  `direction` varchar(32) DEFAULT NULL COMMENT '主动成交方向',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

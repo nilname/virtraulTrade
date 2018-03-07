@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.UserCoinExtMapper" >
+  <update id="freezeUserCoin" parameterType="com.ooteco.model.param.UserCoinParam">
+    UPDATE vt_u_coin
+    SET freeze_quantity = freeze_quantity + #{quantity}
+    WHERE
+      user_id = #{userId}
+      AND coin = #{coin}
+  </update>
+  <update id="tradeSuccess" parameterType="com.ooteco.model.param.UserCoinParam">
+    UPDATE vt_u_coin
+    SET freeze_quantity = freeze_quantity - #{quantity},
+        total_quantity = total_quantity - #{quantity}
+    WHERE
+      user_id = #{userId}
+      AND coin = #{coin}
+  </update>
+  <update id="addUserCoin" parameterType="com.ooteco.model.param.UserCoinParam">
+    UPDATE vt_u_coin
+    SET total_quantity = total_quantity + #{quantity}
+    WHERE
+      user_id = #{userId}
+      AND coin = #{coin}
+  </update>
+  <update id="unfreezeUserCoin" parameterType="com.ooteco.model.param.UserCoinParam">
+    UPDATE vt_u_coin
+    SET freeze_quantity = freeze_quantity - #{quantity}
+    WHERE
+      user_id = #{userId}
+      AND coin = #{coin}
+  </update>
+</mapper>

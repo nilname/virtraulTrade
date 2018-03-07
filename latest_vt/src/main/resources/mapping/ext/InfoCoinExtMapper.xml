@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.InfoCoinExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.model.InfoCoin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name_cn" property="nameCn" jdbcType="VARCHAR" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="inputtime" property="inputtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name_cn, name_en, `desc`, inputtime
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    id, name_cn, name_en
+    from vt_info_coin
+  </select>
+
+  <insert id="insertSelective" parameterType="com.ooteco.model.InfoCoin" keyProperty="id">
+    <selectKey keyProperty='id' resultType='int' order='AFTER'  >
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into vt_info_coin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nameCn != null" >
+        name_cn,
+      </if>
+      <if test="nameEn != null" >
+        name_en,
+      </if>
+      <if test="desc != null" >
+        `desc`,
+      </if>
+      <if test="inputtime != null" >
+        inputtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nameCn != null" >
+        #{nameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null" >
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null" >
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

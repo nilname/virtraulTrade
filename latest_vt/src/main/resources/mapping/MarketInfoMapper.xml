@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.MarketInfoMapper">
+    <resultMap id="MarketInfoResult" type="com.ooteco.model.MarketInfo">
+        <id column="id" property="id"/>
+        <result column="platform" property="platform"/>
+        <result column="symbol" property="symbol"/>
+        <result column="open" property="open"/>
+        <result column="close" property="close"/>
+        <result column="low" property="low"/>
+        <result column="high" property="high"/>
+        <result column="vol" property="vol"/>
+    </resultMap>
+
+
+    <resultMap id="DepthInfoResult" type="com.ooteco.model.DepthInfo">
+        <result column="platform" property="platform"/>
+        <result column="symbol" property="symbol"/>
+        <result column="type" property="type"/>
+        <result column="price" property="price"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+
+    <sql id="MarketInfoColume">
+            id,platform,symbol,open,close,low,high,vol
+    </sql>
+
+    <sql id="DepthInfoColume">
+      platform ,symbol,type ,price,amount
+    </sql>
+
+
+    <select id="getMarkets" resultMap="MarketInfoResult" parameterType="java.lang.String">
+        SELECT
+        <include refid="MarketInfoColume"/>
+        FROM vt_market_tick where platform = #{platform}
+    </select>
+    <select id="getMarket" resultMap="MarketInfoResult" parameterType="java.lang.String">
+        SELECT
+        <include refid="MarketInfoColume"/>
+        FROM vt_market_tick
+        WHERE platform = #{platform} AND symbol=#{symbol}
+    </select>
+    <select id="getDepthInfo" resultMap="DepthInfoResult" parameterType="java.lang.String">
+        SELECT
+        <include refid="DepthInfoColume"/>
+        FROM vt_market_depth
+        where platform = #{platform} AND symbol=#{symbol}
+    </select>
+
+    <resultMap id="TradehistorynfoRsult" type="com.ooteco.model.TradeHistoryInfo">
+        <result column="platform" property="platform"/>
+        <result column="symbol" property="symbol"/>
+        <result column="direction" property="direction"/>
+        <result column="price" property="price"/>
+        <result column="amount" property="amount"/>
+        <result column="ts" property="ts"/>
+    </resultMap>
+
+
+    <sql id="TradeHistoryColume">
+       id, platform,symbol,direction,price,amount,ts
+    </sql>
+
+    <select id="getTradeHistoryInfo" resultMap="TradehistorynfoRsult" parameterType="java.lang.String">
+        SELECT
+
+        <include refid="TradeHistoryColume"/>
+        FROM vt_market_trade_history
+        where platform = #{platform} AND symbol=#{symbol}
+    </select>
+
+</mapper>

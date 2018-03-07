@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.mapper.ext.UserDelegateTradeExtMapper" >
+  <resultMap id="UserTradeDetailResultMap" type="com.ooteco.model.ext.UserDelegateTradeExt"
+             extends="com.ooteco.mapper.UserDelegateTradeMapper.BaseResultMap">
+    <collection property="knockdownTrades" ofType="com.ooteco.model.UserKnockdownTrade"/>
+  </resultMap>
+  <update id="updateStatusAndRemainQuantity">
+    update vt_u_delegate_trade set status = #{status}
+    , remain_quantity = remain_quantity - #{remainQuantity}
+    where id = #{id}
+  </update>
+  <select id="getUserAsksDelegateTrades" resultMap="UserTradeDetailResultMap">
+    SELECT *
+    FROM vt_u_delegate_trade a, vt_u_knockdown_trade b
+    WHERE
+      a.user_id = #{userId}
+      AND a.operate_type = 1
+      AND a.id = b.ask_trade_id;
+  </select>
+  <select id="getUserBidsDelegateTrades" resultMap="UserTradeDetailResultMap">
+    SELECT *
+    FROM vt_u_delegate_trade a, vt_u_knockdown_trade b
+    WHERE
+      a.user_id = #{userId}
+      AND a.operate_type = 2
+      AND a.id = b.bid_trade_id;
+  </select>
+</mapper>
