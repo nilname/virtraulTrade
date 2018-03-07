@@ -1,4 +1,5 @@
 import time
+import datetime
 
 ###########################
 # 工具类
@@ -43,8 +44,22 @@ def gettoday():
     return time.strftime('%Y-%m-%d', time.localtime())
 
 
+
+
+def gettimes():
+    try:
+        d = datetime.datetime.fromtimestamp(time.time())
+        str1 = d.strftime("%Y-%m-%d %H:%M:%S.%f")
+        # 2015-08-28 16:43:37.283000'
+        return str1
+    except Exception as e:
+        print
+        e
+        return ''
+
 if __name__=="__main__":
-    print(gettoday())
+    print(gettimes())
+    print(gettimes())
 
 
 

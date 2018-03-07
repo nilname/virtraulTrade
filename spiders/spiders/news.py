@@ -320,7 +320,7 @@ class headfirst:
             hots = it[3]
             img = self.baseUrl + item.img['src']
             newsuri = 'http://www.qukuaiwang.com.cn' + item.a['href']
-            getdetails(newsuri)
+            self.getdetails(newsuri)
             insertStr = "\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",{}".format(title, author, newstime, newsuri, img, hots)
             self.dao.saveInfo(utils.qukuaiwang_tbl, utils.qukuaiwang_columes, insertStr)
         time.sleep(5)
@@ -342,6 +342,14 @@ class headfirst:
 
     def getTitles(self):
         return self.dao.getData(utils.qukuaiwang_tbl, "title", utils.gettoday())
+
+    def process(self, texts):
+        """详情中的空白用分号替代"""
+        content = texts;
+        content = content.strip();
+        content = re.sub(r'\s+', ";", content)
+        content = re.sub(r';+', ";", content)
+        return content
 
 
 if __name__ == "__main__":

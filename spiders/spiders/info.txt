@@ -20,18 +20,327 @@ CREATE TABLE `vt_info_block_news_detail` (
 
 
 CREATE TABLE `vt_info_news` (
-  `id` int(11) NOT NULL  comment "id ",
+  `id` int(11) NOT NULL AUTO_INCREMENT comment "id ",
   `createtime` datetime DEFAULT NULL comment"快讯发布日期",
   `content` text comment"快讯内容",
   `sourceurl` varchar(255) DEFAULT NULL comment "快讯相关链接地址",
-  `source` varchar(255) DEFAULT NULL comment "数据来源平台"
+  `source` varchar(255) DEFAULT NULL comment "数据来源平台",
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `vt_info_niuren` (
-  `id` int(11) NOT NULL comment "id",
+  `id` int(11) NOT NULL  AUTO_INCREMENT comment "id",
   `name` varchar(255) DEFAULT NULL comment "牛人名称",
   `createtime` datetime DEFAULT NULL comment "发布时间",
   `content` text comment "牛人言论",
-  `source` varchar(64) DEFAULT NULL "牛人言论来源 weibo twitter"
+  `source` varchar(64) DEFAULT NULL comment "牛人言论来源 weibo twitter",
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `vt_market_depth` (
+ `id` int(11) NOT NULL  AUTO_INCREMENT comment "id",
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `type` varchar(16) DEFAULT NULL COMMENT '挂单类型',
+  `price` double(32,16) DEFAULT NULL COMMENT '挂单价格',
+  `amount` double(32,16) DEFAULT NULL COMMENT '挂单数量',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `vt_market_tick` (
+  `id` int(11) DEFAULT NULL AUTO_INCREMENT  COMMENT '自增长',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `open` double(32,16) DEFAULT NULL COMMENT '开盘',
+  `close` double(32,16) DEFAULT NULL COMMENT '收盘最后一笔交易',
+  `low` double(32,16) DEFAULT NULL COMMENT '最低',
+  `high` double(32,16) DEFAULT NULL COMMENT '最高',
+  `amount` double(32,16) DEFAULT NULL COMMENT '成交量',
+  `vol` double(32,16) DEFAULT NULL COMMENT '成交额度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `vt_market_trade_history` (
+  `id` int(11) DEFAULT NULL AUTO_INCREMENT  COMMENT '成交id自增长',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '成交时间时间戳',
+  `platform` varchar(16) DEFAULT NULL COMMENT '平台',
+  `symbol` varchar(16) DEFAULT NULL COMMENT 'symbol',
+  `price` double(32,16) DEFAULT NULL COMMENT '成交价',
+  `amount` double(32,16) DEFAULT NULL COMMENT '成交量',
+  `direction` varchar(32) DEFAULT NULL COMMENT '主动成交方向',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+{"status":"ok","ch":"market.ethusdt.trade.detail","ts":1520428001427,"data":
+[
+{"id":3456286491,"ts":1520427999591,"data":[{"amount":0.622700000000000000,"ts":1520427999591,"id":34562864912104520706,"price":789.180000000000000000,"direction":"sell"},{"amount":17.521300000000000000,"ts":1520427999591,"id":34562864912104516895,"price":789.020000000000000000,"direction":"sell"}]},
+
+{"id":3456278762,"ts":1520427980458,"data":[{"amount":0.433100000000000000,"ts":1520427980458,"id":34562787622104507603,"price":789.010000000000000000,"direction":"sell"}]},
+
+{"id":3456276712,"ts":1520427975715,"data":[{"amount":1.310700000000000000,"ts":1520427975715,"id":34562767122104511121,"price":789.570000000000000000,"direction":"sell"},{"amount":0.000300000000000000,"ts":1520427975715,"id":34562767122104503727,"price":789.010000000000000000,"direction":"sell"},{"amount":1.861200000000000000,"ts":1520427975715,"id":34562767122104507603,"price":789.010000000000000000,"direction":"sell"}]}
+
+,{"id":3456276372,"ts":1520427974423,"data":[{"amount":3.172200000000000000,"ts":1520427974423,"id":34562763722104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456276086,"ts":1520427973490,"data":[{"amount":3.172200000000000000,"ts":1520427973490,"id":34562760862104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456275725,"ts":1520427972699,"data":[{"amount":3.172200000000000000,"ts":1520427972699,"id":34562757252104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456275516,"ts":1520427971978,"data":[{"amount":0.270300000000000000,"ts":1520427971978,"id":34562755162104511885,"price":789.670000000000000000,"direction":"sell"},{"amount":0.401700000000000000,"ts":1520427971978,"id":34562755162104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456274954,"ts":1520427970804,"data":[{"amount":0.400000000000000000,"ts":1520427970804,"id":34562749542104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456274709,"ts":1520427970397,"data":[{"amount":0.253500000000000000,"ts":1520427970397,"id":34562747092104511121,"price":789.570000000000000000,"direction":"sell"}]},
+
+{"id":3456274453,"ts":1520427969786,"data":[{"amount":0.032100000000000000,"ts":1520427969786,"id":34562744532104510325,"price":789.510000000000000000,"direction":"buy"}]}]}
+
+
+['nas_eth', 'eos_eth', 'swftc_btc', 'zec_usdt', 'evx_btc', 'mds_eth', 'smt_eth', 'trx_eth', 'theta_usdt', 'lun_eth', 'bch_btc', 'tnb_btc', 'gnx_eth', 'dat_btc', 'chat_eth', 'qtum_usdt', 'let_btc', 'snt_btc', 'wpr_btc', 'elf_eth', 'utk_btc', 'sbtc_btc', 'neo_usdt', 'mco_btc', 'ost_eth', 'bt2_btc', 'qun_btc', 'hsr_eth', 'topc_eth', 'salt_eth', 'aidoc_eth', 'wax_btc', 'dta_eth', 'btc_usdt', 'gas_eth', 'neo_btc', 'salt_btc', 'btm_btc', 'blz_eth', 'bat_eth', 'eko_btc', 'appc_btc', 'cmt_btc', 'qtum_eth', 'req_btc', 'btm_eth', 'icx_btc', 'ocn_btc', 'zec_btc', 'dgd_eth', 'dat_eth', 'nas_usdt', 'stk_eth', 'ht_eth', 'qun_eth', 'soc_btc', 'elf_btc', 'cmt_eth', 'dbc_btc', 'storj_usdt', 'wax_eth', 'powr_btc', 'zil_usdt', 'dta_btc', 'snc_btc', 'mee_btc', 'nas_btc', 'tnb_eth', 'swftc_eth', 'eos_btc', 'link_eth', 'iost_btc', 'ht_usdt', 'rdn_btc', 'lun_btc', 'gnx_btc', 'ela_btc', 'let_eth', 'evx_eth', 'act_eth', 'bch_usdt', 'icx_eth', 'bcx_btc', 'mtn_eth', 'propy_eth', 'xrp_usdt', 'theta_eth', 'snc_eth', 'dbc_eth', 'itc_usdt', 'smt_btc', 'srn_eth', 'eth_usdt', 'itc_btc', 'omg_btc', 'stk_btc', 'mds_btc', 'adx_btc', 'etc_btc', 'knc_btc', 'cvc_btc', 'qsp_eth', 'btg_btc', 'edu_btc', 'zla_eth', 'mtx_eth', 'rcn_eth', 'utk_eth', 'edu_eth', 'mtl_btc', 'gnt_usdt', 'appc_eth', 'wicc_btc', 'yee_eth', 'omg_usdt', 'link_btc', 'xem_usdt', 'dash_btc', 'tnt_btc', 'qash_eth', 'ruff_eth', 'ela_eth', 'iost_eth', 'theta_btc', 'snt_usdt', 'soc_eth', 'eos_usdt', 'ela_usdt', 'mana_btc', 'smt_usdt', 'xrp_btc', 'ltc_usdt', 'bcd_btc', 'cvc_usdt', 'gnt_eth', 'ht_btc', 'rcn_btc', 'eng_eth', 'pay_eth', 'cvc_eth', 'mee_eth', 'powr_eth', 'blz_btc', 'pay_btc', 'adx_eth', 'let_usdt', 'ruff_usdt', 'eko_eth', 'srn_btc', 'ocn_eth', 'ven_eth', 'abt_eth', 'bifi_btc', 'act_btc', 'etc_usdt', 'ost_btc', 'iost_usdt', 'mco_eth', 'abt_btc', 'storj_btc', 'hsr_btc', 'ven_btc', 'gnt_btc', 'trx_btc', 'dta_usdt', 'zil_btc', 'lsk_btc', 'ltc_btc', 'yee_btc', 'ruff_btc', 'wpr_eth', 'ast_btc', 'dash_usdt', 'dgd_btc', 'zil_eth', 'zrx_btc', 'eth_btc', 'req_eth', 'wicc_eth', 'eng_btc', 'lsk_eth', 'rpx_btc', 'tnt_eth', 'mtx_btc', 'ven_usdt', 'aidoc_btc', 'hsr_usdt', 'qtum_btc', 'qsp_btc', 'bat_btc', 'qash_btc', 'itc_eth', 'xem_btc', 'mana_eth', 'gas_btc', 'mtn_btc', 'chat_btc', 'bt1_btc', 'zla_btc', 'omg_eth', 'topc_btc', 'propy_btc', 'rdn_eth', 'elf_usdt']
+
+
+insert into  vt_market_trade_history ( platform,symbol,direction,price, amount,ts )values( "huobi","nas_eth","sell",0.00868,0.5985,1520429398617);
+
+
+
+okex
+
+=================
+
+
+
+
+
+URL https://www.okex.com/api/v1/depth.do
+示例
+
+# Request
+GET https://www.okex.com/api/v1/depth.do?symbol=ltc_btc
+# Response
+{
+	"asks": [
+		[792, 5],
+		[789.68, 0.018],
+		[788.99, 0.042],
+		[788.43, 0.036],
+		[787.27, 0.02]
+	],
+	"bids": [
+		[787.1, 0.35],
+		[787, 12.071],
+		[786.5, 0.014],
+		[786.2, 0.38],
+		[786, 3.217],
+		[785.3, 5.322],
+		[785.04, 5.04]
+	]
+}
+
+返回值说明
+
+asks :卖方深度
+bids :买方深度
+
+请求参数
+参数名 	参数类型 	必填 	描述
+
+symbol
+
+
+String
+
+
+是
+
+
+ltc_btc eth_btc etc_btc bch_btc btc_usdt eth_usdt ltc_usdt etc_usdt bch_usdt etc_eth bt1_btc bt2_btc btg_btc qtum_btc hsr_btc neo_btc gas_btc qtum_usdt hsr_usdt neo_usdt gas_usdt
+
+size
+
+
+Integer
+
+
+否(默认200)
+
+
+value: 1-200
+
+
+
+
+
+
+==================
+
+
+
+URL https://www.okex.com/api/v1/kline.do  (每个周期数据条数2000左右)
+示例
+
+# Request
+GET https://www.okex.com/api/v1/kline.do?symbol=ltc_btc&type=1min
+# Response
+[
+    [
+        1417449600000,
+        2339.11,
+        2383.15,
+        2322,
+        2369.85,
+        83850.06
+    ],
+    [
+        1417536000000,
+        2370.16,
+        2380,
+        2352,
+        2367.37,
+        17259.83
+    ]
+]
+
+返回值说明
+
+[
+	1417536000000,	时间戳
+	2370.16,	开
+	2380,		高
+	2352,		低
+	2367.37,	收
+	17259.83	交易量
+]
+
+请求参数
+参数名 	参数类型 	必填 	描述
+
+symbol
+
+
+String
+
+
+是
+
+
+ltc_btc eth_btc etc_btc bch_btc btc_usdt eth_usdt ltc_usdt etc_usdt bch_usdt etc_eth bt1_btc bt2_btc btg_btc qtum_btc hsr_btc neo_btc gas_btc qtum_usdt hsr_usdt neo_usdt gas_usdt
+
+type
+
+
+String
+
+
+是
+
+
+1min : 1分钟
+3min : 3分钟
+5min : 5分钟
+15min : 15分钟
+30min : 30分钟
+1day : 1日
+3day : 3日
+1week : 1周
+1hour : 1小时
+2hour : 2小时
+4hour : 4小时
+6hour : 6小时
+12hour : 12小时
+
+size
+
+
+Integer
+
+
+否(默认全部获取)
+
+
+指定获取数据的条数
+
+since
+
+
+Long
+
+
+否(默认全部获取)
+
+
+时间戳，返回该时间戳以后的数据(例如1417536000000)
+
+============
+# Request
+GET https://www.okex.com/api/v1/trades.do?symbol=ltc_btc&since=7622718804
+# Response
+[
+	{
+        "date": "1367130137",
+		"date_ms": "1367130137000",
+		"price": 787.71,
+		"amount": 0.003,
+		"tid": "230433",
+		"type": "sell"
+	},
+	{
+        "date": "1367130137",
+		"date_ms": "1367130137000",
+		"price": 787.65,
+		"amount": 0.001,
+		"tid": "230434",
+		"type": "sell"
+	},
+	{
+		"date": "1367130137",
+		"date_ms": "1367130137000",
+		"price": 787.5,
+		"amount": 0.091,
+		"tid": "230435",
+		"type": "sell"
+	}
+]
+
+返回值说明
+
+date:交易时间
+date_ms:交易时间(ms)
+price: 交易价格
+amount: 交易数量
+tid: 交易生成ID
+type: buy/sell
+
+
+
+=================
+
+zb
+
+//# Request
+GET http://api.zb.com/data/v1/trades?market=btc_usdt
+//# Response
+[
+    {
+        "amount": 0.541,
+        "date": 1472711925,
+        "price": 81.87,
+        "tid": 16497097,
+        "trade_type": "ask",
+        "type": "sell"
+    }...
+]
+
+
+
+date : 交易时间(时间戳)
+price : 交易价格
+amount : 交易数量
+tid : 交易生成ID
+type : 交易类型，buy(买)/sell(卖)
+trade_type : 委托类型，ask(卖)/bid(买)

@@ -16,7 +16,13 @@ class infoDao:
     def __init__(self, dbename=utils.database, username=utils.user, password=utils.passwd, host=utils.host):
         """初始化数据库连接信息"""
         self.dbname = dbename
-        self.db = pymysql.connect(host, username, password, self.dbname, charset="utf8", connect_timeout=3600)
+        self.username = username
+        self.password = password
+        self.host = host
+        self.db = pymysql.connect(self.host, self.username, self.password, self.dbname, charset="utf8", connect_timeout=3600)
+
+    def connect(self):
+        self.db = pymysql.connect(self.host, self.username, self.password, self.dbname, charset="utf8", connect_timeout=3600)
         self.db.connect_timeout = 3600
 
     def getVersion(self):
@@ -126,7 +132,9 @@ class infoDao:
 
     def reconnect(self):
         """连接检查"""
-        self.db.ping(True)
+        self.db.close()
+        self.connect()
+        # self.db.ping(True)
 
         # def __del__(self):
         #     # 关闭数据库连接
