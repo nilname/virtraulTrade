@@ -1,5 +1,4 @@
 import time
-import datetime
 
 ###########################
 # 工具类
@@ -9,7 +8,7 @@ import datetime
 ##############################
 
 weibo_tbl="vt_info_niuren"
-weibo_columes="id,name,createtime,content,source"
+weibo_columes="id,name,createtime,content,source,headimg,contentimg"
 
 twitter_tbl="vt_info_niuren"
 twitter_columes="id,name,createtime,content,source"
@@ -28,7 +27,7 @@ qukuaiwang_columes="title,author,newstime,newsuri,img,viewcount"
 
 
 qukuaiwang_detail_tbl="vt_info_block_news_detail"
-qukuaiwang_detail_columes="title,content,images"
+qukuaiwang_detail_columes="title,author,content,images"
 # host='localhost'
 # user='root'
 # passwd=''
@@ -44,22 +43,8 @@ def gettoday():
     return time.strftime('%Y-%m-%d', time.localtime())
 
 
-
-
-def gettimes():
-    try:
-        d = datetime.datetime.fromtimestamp(time.time())
-        str1 = d.strftime("%Y-%m-%d %H:%M:%S.%f")
-        # 2015-08-28 16:43:37.283000'
-        return str1
-    except Exception as e:
-        print
-        e
-        return ''
-
 if __name__=="__main__":
-    print(gettimes())
-    print(gettimes())
+    print(gettoday())
 
 
 

@@ -140,13 +140,29 @@ class infoDao:
         #     # 关闭数据库连接
         #     self.db.close()
 
+    def getMarketTicks(self):
+        cursor = self.db.cursor()
+        sql = """select * from vt_market_tick limit 10;"""
+        try:
+            print(sql)
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            return data
+        finally:
+            pass
 
 
 if __name__ == "__main__":
-    dao = infoDao();
-    d = dao.getIds("tbl_kuaixun", "2018-02-10")
-
-    for i in d:
-        print(i)
+    # dao = infoDao();
+    # d = dao.getIds("tbl_kuaixun", "2018-02-10")
+    #
+    # for i in d:
+    #     print(i)
         # dao.getVersion()
         # dao.saveInfo(tableName='test', columesName='id,times,content', values="""1,"10:22:33","shibushi" """)
+    dao = infoDao();
+    marketTicks = dao.getMarketTicks();
+    for marketTick in marketTicks :
+        print(marketTick[2])
+        print(marketTick)
+

@@ -7,15 +7,6 @@ import infoDao
 import datetime
 
 
-def gettimes():
-    try:
-        d = datetime.datetime.fromtimestamp(time.time())
-        str1 = d.strftime("%Y-%m-%d %H:%M:%S.%f")
-        # 2015-08-28 16:43:37.283000'
-        return str1
-    except Exception as e:
-        # print e
-        return ''
 
 
 def get_times_from_timestamp(ts):
@@ -39,6 +30,7 @@ class restzb:
 
     def getSymbly(self):
         """ZB的符号表，即交易对映射表"""
+
         return ['zb_qc', 'zb_usdt', 'zb_btc', 'btc_qc', 'btc_usdt', 'bcc_usdt', 'ubtc_usdt', 'ltc_usdt', 'eth_usdt',
                 'etc_usdt', 'bts_usdt', 'eos_usdt', 'qtum_usdt', 'hsr_usdt', 'xrp_usdt', 'bcd_usdt', 'dash_usdt',
                 'bcc_qc', 'ubtc_qc', 'ltc_qc', 'eth_qc', 'etc_qc', 'bts_qc', 'eos_qc', 'qtum_qc', 'hsr_qc', 'xrp_qc',
@@ -53,8 +45,8 @@ class restzb:
                 '1st_qc', '1st_btc', 'safe_usdt', 'safe_qc', 'safe_btc', 'qun_usdt', 'qun_qc', 'qun_btc', 'btn_usdt',
                 'btn_qc', 'btn_btc', 'true_usdt', 'true_qc',
                 'true_btc', 'cdc_usdt', 'cdc_qc', 'cdc_btc', 'ddm_usdt', 'ddm_qc', 'ddm_btc', 'bite_btc', 'hotc_usdt',
-                'hotc_qc', 'hotc_btc', 'qc_usdt', 'usdt_qc', 'xuc_qc', 'xuc_btc', 'epc_qc', 'epc_btc', 'bds_qc',
-                'bds_btc']
+                'hotc_qc', 'hotc_btc', 'usdt_qc', 'xuc_qc', 'xuc_btc', 'epc_qc', 'epc_btc', 'bds_qc',
+                'bds_btc', 'gram_qc', 'gram_usdt', 'gram_btc']
 
     def getMarket(self, symble):
         """获取ZB的行情数据，通过获取kline数据得到"""
@@ -89,7 +81,7 @@ class restzb:
             # print(insertStr)
 
     def getHistory(self, symble):
-        """获取挂单列表数据 抓取前5个"""
+        """获取历史成交记录"""
         url = "http://api.zb.com/data/v1/trades?market=" + symble
         try:
             response_result = urllib.request.urlopen(url).read()
@@ -232,7 +224,7 @@ class restbian:
     # / api / v1 / historicalTrades
 
     def getHistory(self, symble):
-        """获取挂单数据"""
+        """获取历史成交记录"""
         url = "https://www.binance.com/api/v1/historicalTrades?symbol=" + symble + "&limit=10"
         try:
             response_result = urllib.request.urlopen(url).read()
@@ -276,10 +268,10 @@ class resthuobi:
     dao = infoDao.infoDao();
 
     def getHistory(self, symble):
-        pass
-        """https://api.huobi.pro/market/history/trade?size=10&symbol=ethusdt"""
+        """获取历史成交记录"""
+        """https://api.huobipro.com/market/history/trade?size=10&symbol=ethusdt"""
         nsymbol = symble.replace("_", "")
-        url = "https://api.huobi.pro/market/history/trade?size=10&symbol=" + nsymbol
+        url = "https://api.huobipro.com/market/history/trade?size=10&symbol=" + nsymbol
         try:
             response_result = urllib.request.urlopen(url).read()
             tmp = json.loads(response_result)
@@ -305,7 +297,7 @@ class resthuobi:
 
     def getSymbly(self):
         """通过火币的api接口过去交易对信息"""
-        # url = "https://api.huobi.pro/v1/common/symbols"
+        # url = "https://api.huobipro.com/v1/common/symbols"
         # try:
         #     response_result = urllib.request.urlopen(url).read()
         #     tmp = json.loads(response_result)
@@ -347,7 +339,7 @@ class resthuobi:
     def getMarket(self, symble):
         """获取市场行情数据"""
         nsymbol = symble.replace("_", "")
-        url = "https://api.huobi.pro/market/history/kline?period=1min&size=1&symbol=" + nsymbol
+        url = "https://api.huobipro.com/market/history/kline?period=1min&size=1&symbol=" + nsymbol
         try:
             response_result = urllib.request.urlopen(url).read()
             tmp = json.loads(response_result)
@@ -379,7 +371,7 @@ class resthuobi:
     def getdepth(self, symble):
         """获取火币的挂单信息"""
         nsymbol = symble.replace("_", "")
-        url = "https://api.huobi.pro/market/depth?symbol=" + nsymbol + "&type=step5"
+        url = "https://api.huobipro.com/market/depth?symbol=" + nsymbol + "&type=step5"
         try:
             response_result = urllib.request.urlopen(url).read()
             tmp = json.loads(response_result)
@@ -498,7 +490,7 @@ class restokex:
                               values=insertStr)
 
     def getHistory(self, symble):
-        """获取挂单信息"""
+        """获取历史成交记录"""
         #  https://www.okex.com/api/v1/trades.do?symbol=ltc_btc&since=7622718804
         url = "https://www.okex.com/api/v1/trades.do?symbol=" + symble
         try:
@@ -538,7 +530,7 @@ if __name__ == "__main__":
     zb = restzb()
     okex = restokex()
     bian = restbian()
-
+    # 火币接口不稳定会导致数据爬取变慢
     inslist = [huobi,okex, zb, bian]
 
     while True:

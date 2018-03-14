@@ -19,7 +19,7 @@ class jinseKuaixun:
             url = 'http://www.jinse.com/ajax/lives/getList?search=&id=' + str(index) + '&flag=down'
             response_result = urllib.request.urlopen(url).read()
         except Exception as e:
-            print("error happen")
+            # print("error happen")
             return None
         tmp = json.loads(response_result)
         try:
@@ -155,6 +155,8 @@ class twitter:
             if infoDatetime.split(" ")[0] != utils.gettoday():
                 return None
             content = self.processContent(item)
+            if   content and len(content.strip())==0:
+                continue
             source = "twitter"
             insertStr = "{},\"{}\",\"{}\",\"{}\",\"{}\"".format(infoId, name, infoDatetime, content, source)
             print(insertStr)
@@ -197,7 +199,23 @@ class weibo:
     def getDatas(self, index):
         url = 'http://www.jinse.com/ajax/weibo/getList?flag=down&id=' + str(index)
         try:
-            response_result = urllib.request.urlopen(url).read()
+            # response_result = urllib.request.urlopen(url).read()
+            headers = {
+            'User-Agent': r'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '           
+            r'Chrome/45.0.2454.85 Safari/537.36 115Browser/6.0.3',
+            # 'Referer': r'http://www.lagou.com/zhaopin/Python/?labelWords=label',
+            'Connection': 'keep-alive'
+            }
+            req = urllib.request.Request(url, headers=headers)
+            response_result = urllib.request.urlopen(req).read()
+
+            # response_result = page.decode('utf-8')
+            # req = urllib.request(url)
+            # req.add_header("User-Agent",
+            #            "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36")
+            # req.add_header("GET", url)
+            # response_result=req.urlopen(req).read()
+
             tmp = json.loads(response_result)
         except Exception as e:
             return None
@@ -208,6 +226,16 @@ class weibo:
             return None
         for item in all_div:
             infoId = item['id']
+            contentImg=item['image_urls']
+            retweetedImg=item['retweeted_image_urls']
+            contentImgs=""
+            for img in  contentImg :
+                contentImgs+=img['url']+","
+
+            for img in  retweetedImg :
+                contentImgs+=img['url']+","
+
+            headImg=item['user']['avatar']
             if infoId in self.ids:
                 continue
             infoDatetime = item['created_at']
@@ -215,8 +243,12 @@ class weibo:
             if infoDatetime.split(" ")[0] != utils.gettoday():
                 return None
             content = self.processContent(item)
+            if item['retweeted_content']:
+                content=content+","+item['retweeted_content']
+            if len(content.strip())==0:
+                continue
             source = "weibo"
-            insertStr = "{},\"{}\",\"{}\",\"{}\",\"{}\"".format(infoId, name, infoDatetime, content.strip('\n'), source)
+            insertStr = "{},\"{}\",\"{}\",\"{}\",\"{}\",\"{}\",\"{}\"".format(infoId, name, infoDatetime, content.strip('\n'), source,headImg,contentImgs)
             self.dao.saveInfo(tableName=utils.weibo_tbl, columesName=utils.weibo_columes, values=insertStr)
         return int(item['id'])
 
@@ -284,15 +316,14 @@ class headfirst:
         soup = BeautifulSoup(result, 'html.parser')
         contens = soup.find('div', attrs={'class': 'contents'})
         title = contens.h1.text
+        author = contens.find('p', attrs={'class': 'fl'}).text.split("：")[1]
         contendetail = contens.find('div', attrs={'class': 'content-art'})
         imgs=contens.find_all('img');
         img=""
         for image in imgs:
             img+=image['src']+";"
         contentdetals=self.process(contendetail.text)
-        insertStr = "\"{}\",\"{}\",\"{}\"".format(title, contentdetals, img)
-	#print(insertStr)
-	#print("=============")
+        insertStr = "\"{}\",\"{}\",\"{}\",\"{}\"".format(title,author, contentdetals, img)
         self.dao.saveInfo(utils.qukuaiwang_detail_tbl, utils.qukuaiwang_detail_columes, insertStr)
         ###########
         #入库
@@ -349,7 +380,7 @@ class headfirst:
         content = content.strip();
         content = re.sub(r'\s+', ";", content)
         content = re.sub(r';+', ";", content)
-        return content
+        return content[:content.rfind("。")+1]
 
 
 if __name__ == "__main__":
@@ -357,10 +388,11 @@ if __name__ == "__main__":
     bishijieinstance = bishijie()
     kuaixuninstance = jinseKuaixun()
     weiboinstance = weibo()
-    twitterinstance = twitter()
+    # twitterinstance = twitter()
     headfirstinstance = headfirst()
 
-    spiders = [bishijieinstance, kuaixuninstance, weiboinstance, twitterinstance,headfirstinstance]
+    spiders = [ weiboinstance]
+    # spiders = [bishijieinstance, kuaixuninstance, weiboinstance,headfirstinstance]
     while True:
         for its in spiders:
             its.dao.reconnect()
